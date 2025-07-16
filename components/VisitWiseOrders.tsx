@@ -231,7 +231,7 @@ export default function VisitWiseOrders() {
   const currentData = visitData[selectedVisit as keyof typeof visitData] || visitData["VST-12349"];
 
   const getStatusBadge = (status: string) => {
-    const baseClasses = "px-2 py-1 rounded text-xs font-medium";
+    const baseClasses = "px-2 py-1 rounded-full text-xs font-medium";
     switch (status) {
       case "Pending":
         return `${baseClasses} bg-yellow-100 text-yellow-800`;
@@ -320,58 +320,63 @@ export default function VisitWiseOrders() {
             <PiFlask /> Lab Orders
           </h4>
           <div className="overflow-x-auto">
-            <table className="w-full border border-gray-200 rounded-lg">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
-                    Lab Order #
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
-                    CPT Code
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
-                    Description
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
-                    Qty
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
-                    Status changed by
-                  </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
-                    Status
-                  </th>
+        <table className="w-full border border-gray-200 rounded-lg">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 border-r border-gray-200">
+                Lab Order #
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 border-r border-gray-200">
+                CPT Code
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 border-r border-gray-200">
+                Description
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 border-r border-gray-200">
+                Qty
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 border-r border-gray-200">
+                Status changed by
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentData.labOrders.length > 0 ? (
+              currentData.labOrders.map((order, index) => (
+                <tr
+                  key={order.id}
+                  className={`border-t border-gray-200 ${
+                    index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                  }`}
+                >
+                  <td className="px-4 py-3 text-sm border-r border-gray-200">{order.id}</td>
+                  <td className="px-4 py-3 text-sm border-r border-gray-200">{order.cpt}</td>
+                  <td className="px-4 py-3 text-sm border-r border-gray-200">{order.description}</td>
+                  <td className="px-4 py-3 text-sm border-r border-gray-200">{order.qty}</td>
+                  <td className="px-4 py-3 text-sm border-r border-gray-200">{order.changedBy}</td>
+                  <td className="px-4 py-3 text-sm">
+                    <span className={getStatusBadge(order.status)}>
+                      {order.status}
+                    </span>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {currentData.labOrders.length > 0 ? (
-                  currentData.labOrders.map((order) => (
-                    <tr key={order.id} className="border-t border-gray-200">
-                      <td className="px-4 py-3 text-sm">{order.id}</td>
-                      <td className="px-4 py-3 text-sm">{order.cpt}</td>
-                      <td className="px-4 py-3 text-sm">{order.description}</td>
-                      <td className="px-4 py-3 text-sm">{order.qty}</td>
-                      <td className="px-4 py-3 text-sm">{order.changedBy}</td>
-                      <td className="px-4 py-3 text-sm">
-                        <span className={getStatusBadge(order.status)}>
-                          {order.status}
-                        </span>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan={6}
-                      className="px-4 py-8 text-center text-gray-500"
-                    >
-                      No lab orders
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={6}
+                  className="px-4 py-8 text-center text-gray-500"
+                >
+                  No lab orders
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
         </div>
 
         {/* Radiology Orders */}
@@ -423,7 +428,7 @@ export default function VisitWiseOrders() {
                   <tr>
                     <td
                       colSpan={6}
-                      className="px-4 py-8 text-center text-gray-500"
+                      className="p-4 text-gray-500"
                     >
                       No radiology orders
                     </td>
@@ -487,7 +492,7 @@ export default function VisitWiseOrders() {
                   <tr>
                     <td
                       colSpan={6}
-                      className="px-4 py-8 text-center text-gray-500"
+                      className="p-4 text-gray-500"
                     >
                       No other procedures
                     </td>
@@ -531,7 +536,7 @@ export default function VisitWiseOrders() {
                   <tr>
                     <td
                       colSpan={3}
-                      className="px-4 py-8 text-center text-gray-500"
+                      className="p-4 text-gray-500"
                     >
                       No ICD codes
                     </td>
@@ -577,7 +582,7 @@ export default function VisitWiseOrders() {
                   <tr>
                     <td
                       colSpan={3}
-                      className="px-4 py-8 text-center text-gray-500"
+                      className="p-4 text-gray-500"
                     >
                       No medications
                     </td>

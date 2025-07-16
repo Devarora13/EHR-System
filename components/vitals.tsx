@@ -1,5 +1,3 @@
-import { FiClock } from "react-icons/fi"
-
 export default function Vitals() {
   return (
     <div className="bg-white rounded-b-lg shadow-sm p-6">
@@ -86,7 +84,7 @@ export default function Vitals() {
           />
         </div>
         <div className="flex items-end">
-          <button className="w-full h-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium">
+          <button className="w-full h-full bg-blue-500 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium">
             Send to Doctors
           </button>
         </div>
