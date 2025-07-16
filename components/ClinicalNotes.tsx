@@ -8,6 +8,8 @@ export default function ClinicalNotes() {
   const [referredTo, setReferredTo] = useState("");
   const [referralReason, setReferralReason] = useState("");
   const [doctorName, setDoctorName] = useState("");
+  const [doctorSignature, setDoctorSignature] = useState<File | null>(null);
+  const [patientSignature, setPatientSignature] = useState<File | null>(null);
 
   const [secondaryDiagnosis, setSecondaryDiagnosis] = useState<Array<{ code: string, description: string }>>([]);
   const [newSecondaryCode, setNewSecondaryCode] = useState("");
@@ -79,6 +81,20 @@ export default function ClinicalNotes() {
     const updated = [...medications];
     updated.splice(index, 1);
     setMedications(updated);
+  };
+
+  const handleDoctorSignatureUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setDoctorSignature(file);
+    }
+  };
+
+  const handlePatientSignatureUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setPatientSignature(file);
+    }
   };
 
   return (
@@ -381,14 +397,46 @@ export default function ClinicalNotes() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Doctor's Signature & Seal</label>
-            <div className="border-2 border-dashed border-gray-300 rounded-md p-12 text-center bg-gray-50">
-              <p className="text-gray-500">Click to sign</p>
+            <div className="relative">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleDoctorSignatureUpload}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                id="doctor-signature"
+              />
+              <div className="border-2 border-dashed border-gray-300 rounded-md p-12 text-center bg-gray-50 hover:bg-gray-100 transition-colors">
+                {doctorSignature ? (
+                  <div>
+                    <p className="text-green-600 font-medium">✓ {doctorSignature.name}</p>
+                    <p className="text-gray-500 text-xs mt-1">Click to change</p>
+                  </div>
+                ) : (
+                  <p className="text-gray-500">Click to upload signature</p>
+                )}
+              </div>
             </div>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Patient's Signature</label>
-            <div className="border-2 border-dashed border-gray-300 rounded-md p-12 text-center bg-gray-50">
-              <p className="text-gray-500">Patient signature</p>
+            <div className="relative">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handlePatientSignatureUpload}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                id="patient-signature"
+              />
+              <div className="border-2 border-dashed border-gray-300 rounded-md p-12 text-center bg-gray-50 hover:bg-gray-100 transition-colors">
+                {patientSignature ? (
+                  <div>
+                    <p className="text-green-600 font-medium">✓ {patientSignature.name}</p>
+                    <p className="text-gray-500 text-xs mt-1">Click to change</p>
+                  </div>
+                ) : (
+                  <p className="text-gray-500">Click to upload signature</p>
+                )}
+              </div>
             </div>
           </div>
         </div>
