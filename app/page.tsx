@@ -2,13 +2,13 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import Header from "@/components/Header"
-import TabNavigation from "@/components/TabNavigation"
-import PatientInformation from "@/components/PatientInformation"
-import VisitDetails from "@/components/VisitDetails"
-import Vitals from "@/components/Vitals"
-import ClinicalNotes from "@/components/ClinicalNotes"
-import VisitWiseOrders from "@/components/VisitWiseOrders"
+import Header from "@/components/header"
+import TabNavigation from "@/components/tab-navigation"
+import PatientInformation from "@/components/patient-information"
+import VisitDetails from "@/components/visit-details"
+import Vitals from "@/components/vitals"
+import ClinicalNotes from "@/components/clinical-notes"
+import VisitWiseOrders from "@/components/visit-wise-orders"
 
 export default function EHRSystem() {
   const [activeTab, setActiveTab] = useState("Patient Information")
